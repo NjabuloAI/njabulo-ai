@@ -177,7 +177,7 @@ module.exports = {
                             rows: [
         { title: 'ᴀʟʟᴠᴀʀ', description: 'All var', id: `${effectivePrefix}allvar` },
         { title: 'ɢᴇᴛᴠᴀʀ', description: 'Get var', id: `${effectivePrefix}getvar` },
-        { title: 'sᴇᴛᴠᴀʀ', description: 'Set var', id: `${effectivePrefix>setvar` },
+        { title: 'sᴇᴛᴠᴀʀ', description: 'Set var', id: `${effectivePrefix}setvar` },
         { title: 'ᴜᴘᴅᴀᴛᴇ', description: 'Update', id: `${effectivePrefix}update` },
                     ],
                     },
