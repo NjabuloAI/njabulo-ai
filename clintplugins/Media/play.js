@@ -20,19 +20,12 @@ module.exports = async (context) => {
   };
 
   if (!text) {
-    return client.sendMessage(
+    await client.sendMessage(
       m.chat,
       { text: formatStylishReply("Yo, drop a song name, fam! 🎵 Ex: .play Not Like Us") },
-      { quoted: m, ad: true }
+      { quoted: m }
     );
-  }
-
-  if (text.length > 100) {
-    return client.sendMessage(
-      m.chat,
-      { text: formatStylishReply("Keep it short, homie! Song name max 100 chars. 📝") },
-      { quoted: m, ad: true }
-    );
+    return;
   }
 
   try {
@@ -40,12 +33,58 @@ module.exports = async (context) => {
     const searchResult = await yts(searchQuery);
     const video = searchResult.videos[0];
     if (!video) {
-      return client.sendMessage(
+      await client.sendMessage(
         m.chat,
         { text: formatStylishReply("No tunes found, bruh! 😕 Try another search!") },
-        { quoted: m, ad: true }
+        { quoted: m }
       );
+      return;
     }
+
+    const videoInfo = `╭───────────────◆\n` +
+                      `│⿻ *Title:* ${video.title}\n` +
+                      `│⿻ *Duration:* ${video.duration.timestamp}\n` +
+                      `│⿻ *Views:* ${video.views}\n` +
+                      `│⿻ *Uploaded:* ${video.ago}\n` +
+                      `│⿻ *Channel:* ${video.author.name}\n` +
+                      `╰───────────────◆`;
+
+    await client.sendMessage(
+      m.chat,
+      {
+        interactiveMessage: {
+          body: { text: videoInfo },
+          footer: { text: 'Toxic-MD' },
+          nativeFlowMessage: {
+            buttons: [
+              {
+                name: 'cta_url',
+                buttonParamsJson: JSON.stringify({
+                  display_text: 'Visit GitHub',
+                  url: 'https://github.com/xhclintohn/Toxic-MD',
+                  merchant_url: 'https://github.com/xhclintohn/Toxic-MD',
+                }),
+              },
+            ],
+            messageParamsJson: JSON.stringify({
+              limited_time_offer: {
+                text: 'Toxic-MD',
+                url: 'https://github.com/xhclintohn/Toxic-MD',
+                copy_code: 'TOXIC',
+                expiration_time: Date.now() + 100000,
+              },
+              bottom_sheet: {
+                in_thread_buttons_limit: 2,
+                divider_indices: [1, 2],
+                list_title: 'Select Command',
+                button_title: 'Toxic-MD',
+              },
+            }),
+          },
+        },
+      },
+      { quoted: m }
+    );
 
     // Use the new API endpoint
     const apiUrl = `https://api.privatezia.biz.id/api/downloader/ytmp3?url=${encodeURIComponent(video.url)}`;
@@ -85,28 +124,38 @@ module.exports = async (context) => {
 
     await client.sendMessage(
       m.chat,
-      { text: formatStylishReply(`Droppin' *${apiData.result.title || video.title}* for ya, fam! Crank it up! 🔥🎧`) },
-      { quoted: m, ad: true }
-    );
-
-    await client.sendMessage(
-      m.chat,
       {
         audio: { url: filePath },
         mimetype: "audio/mpeg",
         fileName: `${(apiData.result.title || video.title).substring(0, 100)}.mp3`,
         contextInfo: {
           externalAdReply: {
-            title: apiData.result.title || video.title,
-            body: `${video.author.name || "Unknown Artist"} | Powered by Toxic-MD`,
-            thumbnailUrl: apiData.result.thumbnail || video.thumbnail || "https://via.placeholder.com/120x90",
-            sourceUrl: video.url,
+            title: `${botname}`,
+            body: `Yo, ${m.pushName}! Ready to fuck shit up?`,
             mediaType: 1,
+            thumbnail: pict,
+            mediaUrl: 'https://github.com/xhclintohn/Toxic-MD',
+            sourceUrl: 'https://github.com/xhclintohn/Toxic-MD',
+            showAdAttribution: false,
             renderLargerThumbnail: true,
           },
+          messageParamsJson: JSON.stringify({
+            limited_time_offer: {
+              text: 'Toxic-MD',
+              url: 'https://github.com/xhclintohn/Toxic-MD',
+              copy_code: 'TOXIC',
+              expiration_time: Date.now() + 100000,
+            },
+            bottom_sheet: {
+              in_thread_buttons_limit: 2,
+              divider_indices: [1, 2],
+              list_title: 'Select Command',
+              button_title: 'Toxic-MD',
+            },
+          }),
         },
       },
-      { quoted: m, ad: true }
+      { quoted: m }
     );
 
     if (fs.existsSync(filePath)) {
@@ -115,8 +164,38 @@ module.exports = async (context) => {
   } catch (error) {
     await client.sendMessage(
       m.chat,
-      { text: formatStylishReply(`Yo, we hit a snag: ${error.message}. Pick another track! 😎`) },
-      { quoted: m, ad: true }
+      {
+        interactiveMessage: {
+          body: { text: formatStylishReply(`Yo, we hit a snag: ${error.message}. Pick another track! 😎`) },
+          footer: { text: 'Toxic-MD' },
+          nativeFlowMessage: {
+            buttons: [
+              {
+                name: 'quick_reply',
+                buttonParamsJson: JSON.stringify({
+                  display_text: 'Search Again',
+                  id: '.play',
+                }),
+              },
+            ],
+            messageParamsJson: JSON.stringify({
+              limited_time_offer: {
+                text: 'Toxic-MD',
+                url: 'https://github.com/xhclintohn/Toxic-MD',
+                copy_code: 'TOXIC',
+                expiration_time: Date.now() + 100000,
+              },
+              bottom_sheet: {
+                in_thread_buttons_limit: 2,
+                divider_indices: [1, 2],
+                list_title: 'Select Command',
+                button_title: 'Toxic-MD',
+              },
+            }),
+          },
+        },
+      },
+      { quoted: m }
     );
   }
 };
