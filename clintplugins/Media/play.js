@@ -43,12 +43,15 @@ module.exports = async (context) => {
       );
     }
 
-    const videoInfo = `*Title:* ${video.title}\n` +
-                      `*Duration:* ${video.duration.timestamp}\n` +
-                      `*Views:* ${video.views}\n` +
-                      `*Uploaded:* ${video.ago}\n` +
-                      `*Channel:* ${video.author.name}\n` +
-                      `*URL:* ${video.url}`;
+    const videoInfo = `*●Njabulo Jb download ytmp3&mp4●*\n`+
+                      `*🎧 Title:* ${video.title}\n` +
+                      `⏰*Duration:* ${video.duration.timestamp}\n` +
+                      `👀*Views:* ${video.views}\n` +
+                      `👤*Uploaded:* ${video.ago}\n` +
+                      `👥*Channel:* ${video.author.name}\n` +
+                     
+                      `──●─────────: ${video.duration.timestamp}\n` +
+                      `🔗*URL:* ${video.url}`;
 
     await client.sendMessage(
       m.chat,
@@ -104,7 +107,7 @@ module.exports = async (context) => {
         contextInfo: {
           externalAdReply: {
             title: apiData.result.title || video.title,
-            body: `${video.author.name || "Unknown Artist"} | Powered by Toxic-MD`,
+            body: `${video.author.name || "Unknown Artist"} | Pσɯҽɾҽԃ Ⴆყ NנɐႦυℓσ נႦ`,
             thumbnailUrl: apiData.result.thumbnail || video.thumbnail || "https://via.placeholder.com/120x90",
             sourceUrl: video.url,
             mediaType: 1,
