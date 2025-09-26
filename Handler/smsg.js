@@ -24,7 +24,7 @@ function smsg(conn, m, store) {
     m.fromMe = m.key.fromMe;
     m.isGroup = m.chat.endsWith("@g.us");
     m.sender = conn.decodeJid((m.fromMe && conn.user.id) || m.participant || m.key.participant || m.chat || "");
-    if (m.isGroup) m.participant = conn.decodeJid(m.key.participant) || "";
+    if (m.isGroup) m.partner = conn.decodeJid(m.key.participant) || "";
   }
   if (m.message) {
     m.mtype = getContentType(m.message);
@@ -95,41 +95,21 @@ function smsg(conn, m, store) {
   }
   if (m.msg.url) m.download = () => conn.downloadMediaMessage(m.msg);
   m.text = m.text || m.body || "";
-m.reply = (text, chatId = m.chat, options = {}) => {
-  return conn.sendMessage(chatId, {
-    interactiveMessage: {
-      header: {
-        documentMessage: {
-          url: 'https://mmg.whatsapp.net/v/t62.7119-24/539012045_745537058346694_1512031191239726227_n.enc?ccb=11-4&oh=01_Q5Aa2QGGiJj--6eHxoTTTTzuWtBgCrkcXBz9hN_y2s_Z1lrABA&oe=68D7901C&_nc_sid=5e03e0&mms3=true',
-          mimetype: 'image/png',
-          fileSha256: '+gmvvCB6ckJSuuG3ZOzHsTBgRAukejv1nnfwGSSSS/4=',
-          fileLength: '1435',
-          pageCount: 0,
-          mediaKey: 'MWO6fI223TY8T0i9onNcwNBBPldWfwp1j1FPKCiJFzw=',
-          fileName: 'Toxic-MD',
-          fileEncSha256: 'ZS8v9tio2un1yWVOOG3lwBxiP+mNgaKPY9+wl5pEoi8=',
-          directPath: '/v/t62.7119-24/539012045_745537058346694_1512031191239726227_n.enc?ccb=11-4&oh=01_Q5Aa2QGGiJj--6eHxoTTTTzuWtBgCrkcXBz9hN_y2s_Z1lrABA&oe=68D7901C&_nc_sid=5e03e0',
-          mediaKeyTimestamp: '1756370084',
-          jpegThumbnail: kali,
+  m.reply = (text, chatId = m.chat, options = {}) => {
+    return conn.sendMessage(chatId, {
+      text: text,
+      footer: `Pσɯҽɾҽԃ Ⴆყ Toxic-MD`,
+      buttons: [
+        {
+          name: 'cta_url',
+          buttonParamsJson: JSON.stringify({
+            display_text: 'GitHub Repo',
+            url: 'https://github.com/xhclintohn/Toxic-MD',
+          }),
         },
-        hasMediaAttachment: true,
-      },
-      body: { text },
-      footer: { text: `Pσɯҽɾҽԃ Ⴆყ Toxic-MD` },
-      nativeFlowMessage: {
-        buttons: [
-          {
-            name: 'cta_url',
-            buttonParamsJson: JSON.stringify({
-              display_text: 'GitHub Repo',
-              url: 'https://github.com/xhclintohn/Toxic-MD',
-            }),
-          },
-        ],
-      },
-    },
-  }, { quoted: m, ...options });
-};
+      ],
+    }, { quoted: m, ...options });
+  };
   m.copy = () => exports.smsg(conn, M.fromObject(M.toObject(m)));
   m.copyNForward = (jid = m.chat, forceForward = false, options = {}) => conn.copyNForward(jid, m, forceForward, options);
   return m;
