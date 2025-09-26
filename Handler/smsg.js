@@ -14,6 +14,14 @@ const path = require('path');
 const filePath = path.resolve(__dirname, '../toxic.jpg'); 
 const kali = readFileSync(filePath);
 
+const button = {
+  name: 'cta_url',
+  buttonParamsJson: JSON.stringify({
+    display_text: 'GitHub Repo',
+    url: 'https://github.com/xhclintohn/Toxic-MD',
+  }),
+};
+
 function smsg(conn, m, store) {
   if (!m) return m;
   let M = proto.WebMessageInfo;
@@ -24,7 +32,7 @@ function smsg(conn, m, store) {
     m.fromMe = m.key.fromMe;
     m.isGroup = m.chat.endsWith("@g.us");
     m.sender = conn.decodeJid((m.fromMe && conn.user.id) || m.participant || m.key.participant || m.chat || "");
-    if (m.isGroup) m.partner = conn.decodeJid(m.key.participant) || "";
+    if (m.isGroup) m.participant = conn.decodeJid(m.key.participant) || "";
   }
   if (m.message) {
     m.mtype = getContentType(m.message);
@@ -56,7 +64,7 @@ function smsg(conn, m, store) {
     m.mentionedJid = m.msg.contextInfo ? m.msg.contextInfo.mentionedJid : [];
     if (m.quoted) {
       let type = getContentType(quoted);
-      m.quoted = m.quoted[type];
+      m.quoted = m.quoted quoted[type];
       if (["productMessage"].includes(type)) {
         type = getContentType(m.quoted);
         m.quoted = m.quoted[type];
@@ -99,15 +107,7 @@ function smsg(conn, m, store) {
     return conn.sendMessage(chatId, {
       text: text,
       footer: `Pσɯҽɾҽԃ Ⴆყ Toxic-MD`,
-      buttons: [
-        {
-          name: 'cta_url',
-          buttonParamsJson: JSON.stringify({
-            display_text: 'GitHub Repo',
-            url: 'https://github.com/xhclintohn/Toxic-MD',
-          }),
-        },
-      ],
+      buttons: [button],
       contextInfo: {
         externalAdReply: {
           title: `Toxic-MD`,
