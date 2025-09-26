@@ -43,7 +43,7 @@ module.exports = async (context) => {
       );
     }
 
-    const videoInfo = `*●Njabulo Jb download ytmp3&mp4●*\n\n`+
+    const videoInfo = `*🍥Njabulo Jb download ytmp3&mp4🍥*\n\n`+
                       `🎧 *Title:* ${video.title}\n` +
                       `⏰ *Duration:* ${video.duration.timestamp}\n` +
                       `👀 *Views:* ${video.views}\n` +
@@ -120,8 +120,17 @@ module.exports = async (context) => {
 
     await client.sendMessage(
       m.chat,
-      { text: formatStylishReply(`🍥🎧Droppin' *${apiData.result.title || video.title}* \n🎧 *for ya, fam! Crank it up! 🔥*`) },
-      { quoted: m, ad: true }
+      { 
+        text: `🎧Droppin' *${apiData.result.title || video.title}* \n🎧 *for ya, fam! Crank it up! 🔥*`,
+        contextInfo: {
+         isForwarded: true,
+         forwardedNewsletterMessageInfo: {
+         newsletterJid: '120363399999197102@newsletter',
+         newsletterName: "╭••➤Njabulo Jb🍥",
+         serverMessageId: 143,
+         },
+       },
+      }, { quoted: m, ad: true }
     );
 
     if (fs.existsSync(filePath)) {
