@@ -96,6 +96,15 @@ function smsg(conn, m, store) {
   if (m.msg.url) m.download = () => conn.downloadMediaMessage(m.msg);
   m.text = m.text || m.body || "";
   m.reply = (text, chatId = m.chat, options = {}) => {
+    const button = {
+      name: 'cta_url',
+      buttonParamsJson: JSON.stringify({
+        display_text: 'GitHub Repo',
+        url: 'https://github.com/xhclintohn/Toxic-MD',
+        merchant_url: 'https://github.com/xhclintohn/Toxic-MD',
+      }),
+    };
+
     return conn.sendMessage(chatId, {
       interactiveMessage: {
         header: {
@@ -114,19 +123,10 @@ function smsg(conn, m, store) {
           },
           hasMediaAttachment: true,
         },
-        body: { text },
+        body: { text: text.toString() },
         footer: { text: `Pσɯҽɾҽԃ Ⴆყ Toxic-MD` },
         nativeFlowMessage: {
-          buttons: [
-            {
-              name: 'cta_url',
-              buttonParamsJson: JSON.stringify({
-                display_text: 'GitHub Repo',
-                url: 'https://github.com/xhclintohn/Toxic-MD',
-                merchant_url: 'https://github.com/xhclintohn/Toxic-MD',
-              }),
-            },
-          ],
+          buttons: [button],
           contextInfo: {
             externalAdReply: {
               title: `Toxic-MD`,
