@@ -29,10 +29,10 @@ module.exports = {
 
       const toFancyFont = (text, isUpperCase = false) => {
         const fonts = {
-          'A': '𝘼', 'B': '𝘽', 'C': '𝘾', 'D': '𝘿', 'E': '𝙀', 'F': '𝙁', 'G': '𝙂', 'H': '𝙃', 'I': '𝙄', 'J': '𝙅', 'K': '𝙆', 'L': '𝙇', 'M': '𝙈',
-          'N': '𝙉', 'O': '𝙊', 'P': '𝙋', 'Q': '𝙌', 'R': '𝙍', 'S': '𝙎', 'T': '𝙏', 'U': '𝙐', 'V': '𝙑', 'W': '𝙒', 'X': '𝙓', 'Y': '𝙔', 'Z': '𝙕',
-          'a': '𝙖', 'b': '𝙗', 'c': '𝙘', 'd': '𝙙', 'e': '𝙚', 'f': '𝙛', 'g': '𝙜', 'h': '𝙝', 'i': '𝙞', 'j': '𝙟', 'k': '𝙠', 'l': '𝙡', 'm': '𝙢',
-          'n': '𝙣', 'o': '𝙤', 'p': '𝙥', 'q': '𝙦', 'r': '𝙧', 's': '𝙨', 't': '𝙩', 'u': '𝙪', 'v': '𝙫', 'w': '𝙬', 'x': '𝙭', 'y': '𝙮', 'z': '𝙯'
+          'A': '', 'B': '', 'C': '', 'D': '', 'E': '', 'F': '', 'G': '', 'H': '', 'I': '', 'J': '', 'K': '', 'L': '', 'M': '',
+          'N': '', 'O': '', 'P': '', 'Q': '', 'R': '', 'S': '', 'T': '', 'U': '', 'V': '', 'W': '', 'X': '', 'Y': '', 'Z': '',
+          'a': '', 'b': '', 'c': '', 'd': '', 'e': '', 'f': '', 'g': '', 'h': '', 'i': '', 'j': '', 'k': '', 'l': '', 'm': '',
+          'n': '', 'o': '', 'p': '', 'q': '', 'r': '', 's': '', 't': '', 'u': '', 'v': '', 'w': '', 'x': '', 'y': '', 'z': ''
         };
         return (isUpperCase ? text.toUpperCase() : text.toLowerCase())
           .split('')
@@ -78,19 +78,49 @@ I'm running like a damn beast! 😈
       `;
 
       await client.sendMessage(m.chat, {
-        text: replyText,
-        mentions: [m.sender],
-        contextInfo: {
-          externalAdReply: {
-            showAdAttribution: false,
-            title: `${toFancyFont(botName)}`,
-            body: `Yo, ${m.pushName}! Don't waste my time.`,
-            thumbnail: context.pict,
-            sourceUrl: `https://github.com/xhclintohn/Toxic-MD`,
-            mediaType: 1,
-            renderLargerThumbnail: true
-          }
-        }
+        interactiveMessage: {
+          header: {
+          },
+          body: { text: replyText },
+          footer: { text: `Pσɯҽɾҽԃ Ⴆყ Toxic-MD` },
+          nativeFlowMessage: {
+            buttons: [
+              {
+                name: 'cta_url',
+                buttonParamsJson: JSON.stringify({
+                  display_text: 'GitHub Repo',
+                  url: 'https://github.com/xhclintohn/Toxic-MD',
+                  merchant_url: 'https://github.com/xhclintohn/Toxic-MD',
+                }),
+              },
+            ],
+            messageParamsJson: JSON.stringify({
+              limited_time_offer: {
+                text: 'Toxic-MD',
+                url: 'https://github.com/xhclintohn/Toxic-MD',
+                copy_code: 'TOXIC',
+                expiration_time: Date.now() * 1000,
+              },
+              bottom_sheet: {
+                in_thread_buttons_limit: 2,
+                divider_indices: [1, 2],
+                list_title: 'Select Command',
+                button_title: 'Toxic-MD',
+              },
+            }),
+          },
+          contextInfo: {
+            externalAdReply: {
+              title: `${toFancyFont(botName)}`,
+              body: `Yo, ${m.pushName}! Don't waste my time.`,
+              mediaType: 1,
+              thumbnail: context.pict,
+              sourceUrl: `https://github.com/xhclintohn/Toxic-MD`,
+              showAdAttribution: false,
+              renderLargerThumbnail: true,
+            },
+          },
+        },
       }, { quoted: m });
 
       // Send the audio as a voice note after the ping message
