@@ -102,13 +102,19 @@ function smsg(conn, m, store) {
       {
         text: text,
         contextInfo: {
-          externalAdReply: {
-            title: `Toxic-MD`,
-            body: m.pushName,
-            previewType: "PHOTO",
-            thumbnailUrl: 'https://i.ibb.co/7JcYBD5Y/cbb9f804644ae8c4.jpg', 
-            thumbnail: kali, 
-            sourceUrl: 'https://github.com/xhclintohn/Toxic-MD'
+         isForwarded: true,
+         forwardedNewsletterMessageInfo: {
+         newsletterJid: '120363399999197102@newsletter',
+         newsletterName: "╭••➤®Njabulo Jb🍥",
+         serverMessageId: 143,
+         },
+         forwardingScore: 999, // 
+         externalAdReply: {
+         title: "Njabulo Jb",
+         previewType: "PHOTO",
+         thumbnail: kali, 
+         renderLargerThumbnail: true,
+        sourceUrl: 'https://github.com/xhclintohn/Toxic-MD'
           }
         }
       }, 
