@@ -54,7 +54,7 @@ module.exports = async (context) => {
       m.chat,
       {
         image: { url: video.thumbnail },
-        captionUrl: formatStylishReply(videoInfo),
+        caption: videoInfo,
       },
       { quoted: m, ad: true }
     );
@@ -117,7 +117,7 @@ module.exports = async (context) => {
 
     await client.sendMessage(
       m.chat,
-      { text: formatStylishReply(`hy🍥👋 ${message}\n🎧Droppin' *${apiData.result.title || video.title}* \n🎧 *for ya, fam! Crank it up! 🔥*`) },
+      { text: formatStylishReply(`🍥🎧Droppin' *${apiData.result.title || video.title}* \n🎧 *for ya, fam! Crank it up! 🔥*`) },
       { quoted: m, ad: true }
     );
 
