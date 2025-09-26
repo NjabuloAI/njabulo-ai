@@ -121,7 +121,7 @@ module.exports = async (context) => {
     await client.sendMessage(
       m.chat,
       { 
-        text: `🎧Droppin' *${apiData.result.title || video.title}* \n🎧 *for ya, fam! Crank it up! 🔥*`,
+        text: `🎧Droppin' *${apiData.result.title || video.title}* \n🥳 *for ya, fam! Crank it up! 🔥* \n> *follow Join channel have more updates*`,
         contextInfo: {
          isForwarded: true,
          forwardedNewsletterMessageInfo: {
