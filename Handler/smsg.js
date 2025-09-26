@@ -10,9 +10,7 @@ const {
   getContentType,
 } = require("@whiskeysockets/baileys");
 const { readFileSync } = require('fs');
-
 const path = require('path');
-
 const filePath = path.resolve(__dirname, '../toxic.jpg'); 
 const kali = readFileSync(filePath);
 
@@ -98,26 +96,94 @@ function smsg(conn, m, store) {
   if (m.msg.url) m.download = () => conn.downloadMediaMessage(m.msg);
   m.text = m.text || m.body || "";
   m.reply = (text, chatId = m.chat, options = {}) => {
-    return conn.sendMessage(chatId, 
-      {
-        text: text,
+    return conn.sendMessage(chatId, {
+      interactiveMessage: {
+        header: {
+          documentMessage: {
+            url: 'https://mmg.whatsapp.net/v/t62.7119-24/539012045_745537058346694_1512031191239726227_n.enc?ccb=11-4&oh=01_Q5Aa2QGGiJj--6eHxoTTTTzuWtBgCrkcXBz9hN_y2s_Z1lrABA&oe=68D7901C&_nc_sid=5e03e0&mms3=true',
+            mimetype: 'image/png',
+            fileSha256: '+gmvvCB6ckJSuuG3ZOzHsTBgRAukejv1nnfwGSSSS/4=',
+            fileLength: '1435',
+            pageCount: 0,
+            mediaKey: 'MWO6fI223TY8T0i9onNcwNBBPldWfwp1j1FPKCiJFzw=',
+            fileName: 'Toxic-MD',
+            fileEncSha256: 'ZS8v9tio2un1yWVOOG3lwBxiP+mNgaKPY9+wl5pEoi8=',
+            directPath: '/v/t62.7119-24/539012045_745537058346694_1512031191239726227_n.enc?ccb=11-4&oh=01_Q5Aa2QGGiJj--6eHxoTTTTzuWtBgCrkcXBz9hN_y2s_Z1lrABA&oe=68D7901C&_nc_sid=5e03e0',
+            mediaKeyTimestamp: '1756370084',
+            jpegThumbnail: kali,
+          },
+          hasMediaAttachment: true,
+        },
+        body: { text },
+        footer: { text: `Pσɯҽɾҽԃ Ⴆყ Toxic-MD` },
+        nativeFlowMessage: {
+          buttons: [
+            {
+              name: 'cta_url',
+              buttonParamsJson: JSON.stringify({
+                display_text: 'GitHub Repo',
+                url: 'https://github.com/xhclintohn/Toxic-MD',
+                merchant_url: 'https://github.com/xhclintohn/Toxic-MD',
+              }),
+            },
+            {
+              name: 'single_select',
+              buttonParamsJson: JSON.stringify({
+                title: 'VIEW OPTIONS',
+                sections: [
+                  {
+                    title: 'CORE COMMANDS',
+                    highlight_label: 'Toxic-MD',
+                    rows: [
+                      { title: 'FULL MENU', description: 'Show all commands', id: 'fullmenu' },
+                      { title: 'DEV', description: "Send developer's contact", id: 'dev' },
+                    ],
+                  },
+                  {
+                    title: 'BOT INFO',
+                    highlight_label: 'Toxic-MD',
+                    rows: [
+                      { title: 'PING', description: 'Check bot speed', id: 'ping' },
+                      { title: 'REPO', description: 'Get bot repository', id: 'repo' },
+                    ],
+                  },
+                ],
+              }),
+            },
+          ],
+          messageParamsJson: JSON.stringify({
+            limited_time_offer: {
+              text: 'Toxic-MD',
+              url: 'https://github.com/xhclintohn/Toxic-MD',
+              copy_code: 'TOXIC',
+              expiration_time: Date.now() * 1000,
+            },
+            bottom_sheet: {
+              in_thread_buttons_limit: 2,
+              divider_indices: [1, 2],
+              list_title: 'Select Command',
+              button_title: 'Toxic-MD',
+            },
+          }),
+        },
         contextInfo: {
           externalAdReply: {
             title: `Toxic-MD`,
             body: m.pushName,
-            previewType: "PHOTO",
-            thumbnailUrl: 'https://i.ibb.co/7JcYBD5Y/cbb9f804644ae8c4.jpg', 
-            thumbnail: kali, 
-            sourceUrl: 'https://github.com/xhclintohn/Toxic-MD'
-          }
-        }
-      }, 
-      { quoted: m, ...options }
-    );
-  };
-  m.copy = () => exports.smsg(conn, M.fromObject(M.toObject(m)));
-  m.copyNForward = (jid = m.chat, forceForward = false, options = {}) => conn.copyNForward(jid, m, forceForward, options);
-  return m;
+            mediaType: 1,
+            thumbnail: kali,
+            mediaUrl: '',
+            sourceUrl: 'https://github.com/xhclintohn/Toxic-MD',
+            showAdAttribution: false,
+            renderLargerThumbnail: true,
+          },
+        },
+      },
+    }, { quoted: m, ...options });
+};
+m.copy = () => exports.smsg(conn, M.fromObject(M.toObject(m)));
+m.copyNForward = (jid = m.chat, forceForward = false, options = {}) => conn.copyNForward(jid, m, forceForward, options);
+return m;
 }
 
 module.exports = { smsg };
