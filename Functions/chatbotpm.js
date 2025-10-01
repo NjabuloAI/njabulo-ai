@@ -57,7 +57,7 @@ module.exports = async (client, m, store, chatbotpmSetting) => {
                  isForwarded: true,
                    forwardedNewsletterMessageInfo: {
                    newsletterJid: '120363399999197102@newsletter',
-                    newsletterName: "╭••➤®Njabulo Jb🍥",
+                    newsletterName: "╭••➤®Njabulo AI🍥",
                        serverMessageId: 143,
                    }
                 }
