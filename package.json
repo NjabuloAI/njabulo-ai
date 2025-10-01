@@ -18,7 +18,7 @@
     "whatsapp-multi-device"
   ],
   "base": "https://github.com/DikaArdnt/Hisoka-Morou",
-  "author": "xhclinton",
+  "author": "NjabuloAI",
   "license": "MIT",
   "dependencies": {
     "@whiskeysockets/baileys": "github:tenka-san/WaBails",    
